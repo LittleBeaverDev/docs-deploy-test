@@ -75,6 +75,25 @@
   --sl-color-hairline: #e5e5e5;
 }
 
+/* Header site title & logo (monochrome text, compact GitBook-like logo) */
+header.header .site-title {
+  color: var(--sl-color-white);
+  gap: 0.5rem;
+  font-size: 1.0625rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+header.header .site-title:hover {
+  color: var(--sl-color-white);
+}
+
+header.header .site-title img {
+  height: 1.5rem;
+  width: 1.5rem;
+  object-fit: contain;
+}
+
 /* Headings typography */
 .sl-markdown-content h1,
 .sl-markdown-content h2,
