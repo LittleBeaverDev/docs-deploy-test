@@ -291,7 +291,81 @@ nav.sidebar .large {
 }
 
 .media-lightbox__media--image {
+  max-height: 78vh;
   cursor: zoom-out;
+  user-select: none;
+  -webkit-user-select: none;
+  will-change: transform;
+}
+
+.media-lightbox__media--image.is-zoomed {
+  cursor: grab;
+}
+
+.media-lightbox__media--image.is-zoomed.is-dragging {
+  cursor: grabbing;
+}
+
+.media-lightbox__controls {
+  position: fixed;
+  bottom: 1.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 2;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.125rem;
+  padding: 0.25rem;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 9999px;
+  background-color: rgba(24, 24, 27, 0.78);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+}
+
+.media-lightbox__ctrl-btn,
+.media-lightbox__ctrl-level {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 1.875rem;
+  border: none;
+  border-radius: 9999px;
+  background: transparent;
+  color: #ffffff;
+  cursor: pointer;
+  transition: background-color 0.15s ease, opacity 0.15s ease;
+}
+
+.media-lightbox__ctrl-btn {
+  width: 1.875rem;
+  padding: 0;
+}
+
+.media-lightbox__ctrl-level {
+  min-width: 3.25rem;
+  padding: 0 0.5rem;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  font-variant-numeric: tabular-nums;
+}
+
+.media-lightbox__ctrl-btn:hover:not(:disabled),
+.media-lightbox__ctrl-level:hover:not(:disabled) {
+  background-color: rgba(255, 255, 255, 0.14);
+}
+
+.media-lightbox__ctrl-btn:focus-visible,
+.media-lightbox__ctrl-level:focus-visible {
+  outline: 2px solid rgba(255, 255, 255, 0.5);
+  outline-offset: -2px;
+}
+
+.media-lightbox__ctrl-btn:disabled,
+.media-lightbox__ctrl-level:disabled {
+  opacity: 0.4;
+  cursor: default;
 }
 
 .media-lightbox__media--video {
