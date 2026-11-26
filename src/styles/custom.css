@@ -1,0 +1,698 @@
+/* ==========================================================================
+   Donue Guide Theme (matched to https://guide.donue.co.kr/ GitBook Clean)
+   Primary Brand Color: #CD001A (rgb(205, 0, 26))
+   ========================================================================== */
+
+:root {
+  /* Typography */
+  --sl-font: "Roboto", "Pretendard Variable", "Pretendard", -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", sans-serif;
+  --sl-font-mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+
+  /* Scale matched to GitBook (max-w-3xl = 48rem, crisp Korean readability) */
+  --sl-content-width: 48rem;
+  --sl-text-xs: 0.75rem;
+  --sl-text-sm: 0.875rem;
+  --sl-text-base: 0.9375rem;
+  --sl-text-lg: 1.0625rem;
+  --sl-text-xl: 1.25rem;
+  --sl-text-2xl: 1.5rem;
+  --sl-text-3xl: 1.75rem;
+  --sl-text-4xl: 2rem;
+  --sl-text-5xl: 2.25rem;
+
+  --sl-text-h1: 2rem;
+  --sl-text-h2: 1.5rem;
+  --sl-text-h3: 1.25rem;
+  --sl-text-h4: 1.0625rem;
+  --sl-text-h5: 0.9375rem;
+
+  --sl-line-height: 1.7;
+  --sl-line-height-headings: 1.3;
+
+  /* Dark mode palette (GitBook dark --primary / --info tokens) */
+  --sl-color-accent-low: #362826;
+  --sl-color-accent: #cd001a;
+  --sl-color-accent-high: #f96b68;
+  --sl-color-text-accent: #f96b68;
+
+  --sl-color-white: #ffffff;
+  --sl-color-gray-1: #ebebeb;
+  --sl-color-gray-2: #c0c0c0;
+  --sl-color-gray-3: #909090;
+  --sl-color-gray-4: #5a5a5a;
+  --sl-color-gray-5: #393939;
+  --sl-color-gray-6: #2c2c2c;
+  --sl-color-black: #1d1d1d;
+
+  --sl-color-bg: #1d1d1d;
+  --sl-color-bg-nav: #1d1d1d;
+  --sl-color-bg-sidebar: #222222;
+  --sl-color-hairline-light: #303030;
+  --sl-color-hairline: #393939;
+}
+
+:root[data-theme="light"] {
+  /* Light mode palette (GitBook light --primary / --info tokens) */
+  --sl-color-accent-low: #fff2f0;
+  --sl-color-accent: #cd001a;
+  --sl-color-accent-high: #a80015;
+  --sl-color-text-accent: #cd001a;
+
+  --sl-color-white: #1d1d1d;
+  --sl-color-gray-1: #2d2d2d;
+  --sl-color-gray-2: #4a4a4a;
+  --sl-color-gray-3: #6e6e6e;
+  --sl-color-gray-4: #a3a3a3;
+  --sl-color-gray-5: #e5e5e5;
+  --sl-color-gray-6: #f7f7f7;
+  --sl-color-gray-7: #fafafa;
+  --sl-color-black: #ffffff;
+
+  --sl-color-bg: #ffffff;
+  --sl-color-bg-nav: #ffffff;
+  --sl-color-bg-sidebar: #fafafa;
+  --sl-color-hairline-light: #eeeeee;
+  --sl-color-hairline: #e5e5e5;
+}
+
+/* Headings typography */
+.sl-markdown-content h1,
+.sl-markdown-content h2,
+.sl-markdown-content h3,
+.sl-markdown-content h4,
+h1#_top {
+  letter-spacing: -0.015em;
+}
+
+h1#_top {
+  font-size: var(--sl-text-h1);
+  font-weight: 700;
+}
+
+.sl-markdown-content h2 {
+  font-size: var(--sl-text-h2);
+  font-weight: 600;
+  padding-top: 0.5rem;
+}
+
+.sl-markdown-content h3 {
+  font-size: var(--sl-text-h3);
+  font-weight: 600;
+}
+
+/* Sidebar styling closer to GitBook clean sidebar */
+nav.sidebar a[aria-current="page"],
+nav.sidebar a[aria-current="page"]:hover,
+nav.sidebar a[aria-current="page"]:focus {
+  background-color: var(--sl-color-accent-low);
+  color: var(--sl-color-text-accent);
+  font-weight: 600;
+}
+
+nav.sidebar .large {
+  font-size: var(--sl-text-sm);
+}
+
+/* Clean rounded screenshot framing & 1.5x bottom spacing */
+.sl-markdown-content img {
+  border-radius: 0.375rem;
+  border: 1px solid var(--sl-color-hairline);
+}
+
+/* GitBook-style <mark> text/background highlights */
+.sl-markdown-content mark {
+  background-color: transparent;
+  color: inherit;
+  border-radius: 0.2rem;
+}
+
+.sl-markdown-content mark[style*="background-color"] {
+  padding: 0.05em 0.25em;
+  color: #1d1d1d;
+}
+
+.sl-markdown-content mark.obsidian-highlight {
+  padding: 0.05em 0.25em;
+  background-color: rgba(250, 204, 21, 0.28);
+  color: inherit;
+}
+
+:root[data-theme="light"] .sl-markdown-content mark.obsidian-highlight {
+  background-color: #fef08a;
+  color: #1d1d1d;
+}
+
+.sl-markdown-content p:has(> img:only-child) {
+  margin-bottom: 1.5rem;
+}
+
+.sl-markdown-content p:has(> img:only-child) + *:not(:where(.not-content *)) {
+  margin-top: 1.5rem;
+}
+
+/* Side-by-side horizontal image rows */
+.sl-markdown-content .image-row {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: flex-start;
+  gap: 1rem;
+  margin-top: 1.25rem;
+  margin-bottom: 1.875rem;
+}
+
+.sl-markdown-content .image-row + *:not(:where(.not-content *)) {
+  margin-top: 1.875rem;
+}
+
+.sl-markdown-content .image-row > .image-row__item,
+.sl-markdown-content .image-row > .image-row__item + .image-row__item {
+  flex: 1 1 0;
+  min-width: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.sl-markdown-content .image-row > .image-row__item > img {
+  max-width: 100%;
+  height: auto;
+  margin: 0;
+}
+
+.sl-markdown-content .image-row > .image-row__item > .image-row__caption {
+  margin: 0;
+  font-size: 0.8125rem;
+  color: var(--sl-color-gray-3);
+  text-align: center;
+  line-height: 1.4;
+}
+
+@media (max-width: 36rem) {
+  .sl-markdown-content .image-row {
+    flex-wrap: wrap;
+  }
+
+  .sl-markdown-content .image-row__item {
+    flex: 1 1 100%;
+  }
+}
+
+/* ==========================================================================
+   List indentation & spacing (matched to GitBook min-w-6 + mr-1)
+   ========================================================================== */
+.sl-markdown-content :is(ul, ol):not(:where(.not-content *)) {
+  padding-inline-start: 1.5rem;
+}
+
+.sl-markdown-content :is(ul, ol) :is(ul, ol):not(:where(.not-content *)) {
+  padding-inline-start: 1.5rem;
+  margin-top: 0.375rem;
+}
+
+.sl-markdown-content :is(ul, ol) > li:not(:where(.not-content *)) {
+  padding-inline-start: 0.25rem;
+}
+
+.sl-markdown-content :is(ul, ol) > li + li:not(:where(.not-content *)) {
+  margin-top: 0.375rem;
+}
+
+.sl-markdown-content :is(ul, ol) > li::marker {
+  color: var(--sl-color-gray-3);
+}
+
+/* ==========================================================================
+   External link arrow-up-right icon (matched to GitBook)
+   ========================================================================== */
+.sl-markdown-content a[href^="http://"]:not(:has(img))::after,
+.sl-markdown-content a[href^="https://"]:not(:has(img))::after,
+nav.sidebar a[href^="http://"]::after,
+nav.sidebar a[href^="https://"]::after {
+  content: "";
+  display: inline-block;
+  width: 0.72em;
+  height: 0.72em;
+  margin-inline-start: 0.25em;
+  vertical-align: -0.04em;
+  background-color: currentColor;
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 384 512'%3E%3Cpath d='M360 64c13.3 0 24 10.7 24 24v240c0 13.3-10.7 24-24 24s-24-10.7-24-24V145.9L41 440.9c-9.4 9.4-24.6 9.4-33.9 0s-9.4-24.6 0-33.9L302.1 112H120c-13.3 0-24-10.7-24-24s10.7-24 24-24h240z'/%3E%3C/svg%3E") no-repeat center / contain;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 384 512'%3E%3Cpath d='M360 64c13.3 0 24 10.7 24 24v240c0 13.3-10.7 24-24 24s-24-10.7-24-24V145.9L41 440.9c-9.4 9.4-24.6 9.4-33.9 0s-9.4-24.6 0-33.9L302.1 112H120c-13.3 0-24-10.7-24-24s10.7-24 24-24h240z'/%3E%3C/svg%3E") no-repeat center / contain;
+  opacity: 0.75;
+  flex-shrink: 0;
+}
+
+nav.sidebar a[href^="http://"],
+nav.sidebar a[href^="https://"] {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+nav.sidebar a[href^="http://"]::after,
+nav.sidebar a[href^="https://"]::after {
+  margin-inline-start: auto;
+  opacity: 0.55;
+  transition: opacity 0.15s ease;
+}
+
+nav.sidebar a[href^="http://"]:hover::after,
+nav.sidebar a[href^="https://"]:hover::after {
+  opacity: 0.9;
+}
+
+/* ==========================================================================
+   GitBook-style hint boxes for info/success/caution/danger callouts (titled & untitled)
+   ========================================================================== */
+.starlight-aside--note,
+.starlight-aside--success,
+.starlight-aside--caution,
+.starlight-aside--danger {
+  padding: 1rem;
+  border: 0;
+  border-radius: 0.375rem;
+  font-size: 0.875rem;
+}
+
+.starlight-aside--note {
+  background-color: rgb(44, 44, 44);
+  color: rgb(255, 255, 255);
+}
+
+:root[data-theme="light"] .starlight-aside--note {
+  background-color: rgb(247, 247, 247);
+  color: rgb(29, 29, 29);
+}
+
+.starlight-aside--success {
+  background-color: rgb(37, 47, 38);
+  color: rgb(246, 255, 247);
+}
+
+:root[data-theme="light"] .starlight-aside--success {
+  background-color: rgb(238, 252, 240);
+  color: rgb(22, 32, 23);
+}
+
+.starlight-aside--caution {
+  background-color: rgb(50, 42, 35);
+  color: rgb(255, 253, 243);
+}
+
+:root[data-theme="light"] .starlight-aside--caution {
+  background-color: rgb(255, 245, 236);
+  color: rgb(35, 28, 21);
+}
+
+.starlight-aside--danger {
+  background-color: rgb(55, 39, 38);
+  color: rgb(255, 249, 247);
+}
+
+:root[data-theme="light"] .starlight-aside--danger {
+  background-color: rgb(255, 242, 239);
+  color: rgb(39, 25, 23);
+}
+
+/* Custom-titled hint boxes keep icon + title */
+.starlight-aside--note > .starlight-aside__title,
+.starlight-aside--success > .starlight-aside__title,
+.starlight-aside--caution > .starlight-aside__title,
+.starlight-aside--danger > .starlight-aside__title {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 0;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+.starlight-aside--note > .starlight-aside__title {
+  color: rgb(255, 255, 255);
+}
+
+:root[data-theme="light"] .starlight-aside--note > .starlight-aside__title {
+  color: rgb(29, 29, 29);
+}
+
+.starlight-aside--note > .starlight-aside__title > .starlight-aside__icon {
+  color: rgb(192, 192, 192);
+}
+
+:root[data-theme="light"] .starlight-aside--note > .starlight-aside__title > .starlight-aside__icon {
+  color: rgb(110, 110, 110);
+}
+
+.starlight-aside--success > .starlight-aside__title,
+.starlight-aside--success > .starlight-aside__title > .starlight-aside__icon {
+  color: rgb(0, 201, 80);
+}
+
+:root[data-theme="light"] .starlight-aside--success > .starlight-aside__title,
+:root[data-theme="light"] .starlight-aside--success > .starlight-aside__title > .starlight-aside__icon {
+  color: rgb(0, 152, 23);
+}
+
+.starlight-aside--caution > .starlight-aside__title,
+.starlight-aside--caution > .starlight-aside__title > .starlight-aside__icon {
+  color: rgb(254, 154, 0);
+}
+
+.starlight-aside--danger > .starlight-aside__title,
+.starlight-aside--danger > .starlight-aside__title > .starlight-aside__icon {
+  color: rgb(255, 82, 87);
+}
+
+:root[data-theme="light"] .starlight-aside--danger > .starlight-aside__title,
+:root[data-theme="light"] .starlight-aside--danger > .starlight-aside__title > .starlight-aside__icon {
+  color: rgb(251, 44, 54);
+}
+
+.starlight-aside--note > .starlight-aside__title > .starlight-aside__icon,
+.starlight-aside--success > .starlight-aside__title > .starlight-aside__icon,
+.starlight-aside--caution > .starlight-aside__title > .starlight-aside__icon,
+.starlight-aside--danger > .starlight-aside__title > .starlight-aside__icon {
+  width: 1.125rem;
+  height: 1.125rem;
+  flex-shrink: 0;
+}
+
+.starlight-aside--note > .starlight-aside__content > :last-child,
+.starlight-aside--success > .starlight-aside__content > :last-child,
+.starlight-aside--caution > .starlight-aside__content > :last-child,
+.starlight-aside--danger > .starlight-aside__content > :last-child {
+  margin-bottom: 0;
+}
+
+/* Untitled hint boxes: 2-column icon + body layout, hiding default label text */
+.starlight-aside--note[aria-label="참고"],
+.starlight-aside--success[aria-label="성공"],
+.starlight-aside--caution[aria-label="주의"],
+.starlight-aside--danger[aria-label="위험"] {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: start;
+  column-gap: 0.75rem;
+}
+
+.starlight-aside--note[aria-label="참고"] > .starlight-aside__title,
+.starlight-aside--success[aria-label="성공"] > .starlight-aside__title,
+.starlight-aside--caution[aria-label="주의"] > .starlight-aside__title,
+.starlight-aside--danger[aria-label="위험"] > .starlight-aside__title {
+  gap: 0;
+  padding-top: 0.15rem;
+  font-size: 0;
+  line-height: 0;
+}
+
+.sl-markdown-content .starlight-aside--note[aria-label="참고"] > .starlight-aside__content,
+.starlight-aside--note[aria-label="참고"] > .starlight-aside__title + .starlight-aside__content,
+.sl-markdown-content .starlight-aside--success[aria-label="성공"] > .starlight-aside__content,
+.starlight-aside--success[aria-label="성공"] > .starlight-aside__title + .starlight-aside__content,
+.sl-markdown-content .starlight-aside--caution[aria-label="주의"] > .starlight-aside__content,
+.starlight-aside--caution[aria-label="주의"] > .starlight-aside__title + .starlight-aside__content,
+.sl-markdown-content .starlight-aside--danger[aria-label="위험"] > .starlight-aside__content,
+.starlight-aside--danger[aria-label="위험"] > .starlight-aside__title + .starlight-aside__content {
+  margin-top: 0;
+  min-width: 0;
+}
+
+.starlight-aside--note[aria-label="참고"] > .starlight-aside__content > :first-child,
+.starlight-aside--success[aria-label="성공"] > .starlight-aside__content > :first-child,
+.starlight-aside--caution[aria-label="주의"] > .starlight-aside__content > :first-child,
+.starlight-aside--danger[aria-label="위험"] > .starlight-aside__content > :first-child {
+  margin-top: 0;
+}
+
+/* Hide default Starlight aside title for untitled tip callouts,
+   while keeping custom titles (e.g., related document callouts). */
+.starlight-aside[aria-label="팁"] > .starlight-aside__title {
+  display: none;
+}
+
+.sl-markdown-content .starlight-aside[aria-label="팁"] > .starlight-aside__content {
+  margin-top: 0;
+}
+
+/* ==========================================================================
+   Auto-grouped consecutive titled callouts rendered as GitBook v2 tabs
+   (matched to https://guide.donue.co.kr/undefined#undefined-3)
+   ========================================================================== */
+.callout-tabs {
+  --tab-inactive-bg: rgba(255, 255, 255, 0.05);
+  --tab-divider-color: rgba(255, 255, 255, 0.1);
+  margin-block: 1.5rem;
+  border: 1px solid var(--sl-color-hairline);
+  border-radius: 0.5rem;
+  overflow: hidden;
+  background-color: var(--sl-color-bg);
+}
+
+:root[data-theme="light"] .callout-tabs {
+  --tab-inactive-bg: rgba(29, 29, 29, 0.04);
+  --tab-divider-color: rgba(29, 29, 29, 0.1);
+}
+
+.callout-tabs__list {
+  display: flex;
+  align-items: stretch;
+  padding: 0;
+  background-color: transparent;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scrollbar-width: thin;
+}
+
+.callout-tabs__list::after {
+  content: "";
+  flex: 1 1 auto;
+  min-width: 0;
+  background-color: var(--tab-inactive-bg);
+}
+
+.callout-tabs__list:has(> .callout-tabs__tab:last-of-type[aria-selected="true"])::after {
+  border-bottom-left-radius: 0.375rem;
+}
+
+.callout-tabs__tab {
+  position: relative;
+  appearance: none;
+  background-color: var(--tab-inactive-bg);
+  border: 0;
+  margin: 0;
+  padding: 0.625rem 1rem;
+  font: inherit;
+  font-size: 0.875rem;
+  font-weight: 500;
+  line-height: 1.4;
+  color: var(--sl-color-gray-3);
+  white-space: nowrap;
+  cursor: pointer;
+  transition: color 0.15s ease, background-color 0.15s ease;
+}
+
+.callout-tabs__tab::after {
+  content: "";
+  position: absolute;
+  top: 15%;
+  right: 0;
+  width: 1px;
+  height: 70%;
+  background-color: var(--tab-divider-color);
+  transition: background-color 0.15s ease;
+}
+
+.callout-tabs__tab:last-of-type::after {
+  background-color: transparent;
+}
+
+.callout-tabs__tab:hover {
+  color: var(--sl-color-white);
+}
+
+.callout-tabs__tab[aria-selected="true"] {
+  background-color: transparent;
+  color: var(--sl-color-white);
+  font-weight: 500;
+}
+
+.callout-tabs__tab[aria-selected="true"]::after,
+.callout-tabs__tab:has(+ .callout-tabs__tab[aria-selected="true"])::after {
+  background-color: transparent;
+}
+
+.callout-tabs__tab:has(+ .callout-tabs__tab[aria-selected="true"]) {
+  border-bottom-right-radius: 0.375rem;
+}
+
+.callout-tabs__tab[aria-selected="true"] + .callout-tabs__tab {
+  border-bottom-left-radius: 0.375rem;
+}
+
+.callout-tabs__panels {
+  background-color: var(--sl-color-bg);
+}
+
+.callout-tabs__panel {
+  padding: 1.5rem 2rem;
+}
+
+@media (max-width: 50rem) {
+  .callout-tabs__panel {
+    padding: 1.25rem;
+  }
+}
+
+.callout-tabs__panel[hidden] {
+  display: none;
+}
+
+.callout-tabs__panel > :first-child {
+  margin-top: 0;
+}
+
+.callout-tabs__panel > :last-child {
+  margin-bottom: 0;
+}
+
+/* ==========================================================================
+   GitBook-style internal content-ref link card (.related-doc)
+   ========================================================================== */
+.sl-markdown-content a.related-doc {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  width: 100%;
+  padding: 0.875rem 1.25rem;
+  margin-block: 1rem;
+  border: 1px solid var(--sl-color-hairline);
+  border-radius: 0.5rem;
+  background-color: var(--sl-color-bg);
+  color: var(--sl-color-white);
+  font-size: 0.9375rem;
+  font-weight: 500;
+  text-decoration: none;
+  transition: border-color 0.15s ease, color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.sl-markdown-content a.related-doc::after {
+  content: "";
+  display: inline-block;
+  width: 0.75rem;
+  height: 0.75rem;
+  flex-shrink: 0;
+  background-color: var(--sl-color-gray-3);
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 320 512'%3E%3Cpath d='M310.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-192 192c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L242.7 256 73.4 86.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l192 192z'/%3E%3C/svg%3E") no-repeat center / contain;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 320 512'%3E%3Cpath d='M310.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-192 192c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L242.7 256 73.4 86.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l192 192z'/%3E%3C/svg%3E") no-repeat center / contain;
+  transition: transform 0.15s ease, background-color 0.15s ease;
+}
+
+.sl-markdown-content a.related-doc:hover {
+  border-color: var(--sl-color-gray-4);
+  color: var(--sl-color-text-accent);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+}
+
+.sl-markdown-content a.related-doc:hover::after {
+  background-color: var(--sl-color-text-accent);
+  transform: translateX(2px);
+}
+
+/* ==========================================================================
+   GitBook-style Previous / Next pagination cards
+   ========================================================================== */
+.pagination-links {
+  gap: 0.75rem !important;
+  margin-top: 2rem;
+}
+
+.pagination-links a {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding: 0.75rem 1rem !important;
+  border: 1px solid var(--sl-color-hairline) !important;
+  border-radius: 0.5rem !important;
+  background-color: var(--sl-color-bg);
+  box-shadow: none !important;
+  color: var(--sl-color-gray-3) !important;
+  font-size: 0.75rem;
+  line-height: 1.4;
+  transition: border-color 0.15s ease, color 0.15s ease;
+}
+
+.pagination-links a > svg {
+  display: none !important;
+}
+
+.pagination-links a[rel="prev"]::before,
+.pagination-links a[rel="next"]::after {
+  content: "";
+  display: inline-block;
+  width: 0.75rem;
+  height: 0.75rem;
+  flex-shrink: 0;
+  background-color: var(--sl-color-gray-3);
+  transition: transform 0.15s ease, background-color 0.15s ease;
+}
+
+.pagination-links a[rel="prev"]::before {
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 320 512'%3E%3Cpath d='M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l192 192c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L77.3 256 246.6 86.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-192 192z'/%3E%3C/svg%3E") no-repeat center / contain;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 320 512'%3E%3Cpath d='M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l192 192c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L77.3 256 246.6 86.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-192 192z'/%3E%3C/svg%3E") no-repeat center / contain;
+}
+
+.pagination-links a[rel="next"]::after {
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 320 512'%3E%3Cpath d='M310.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-192 192c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L242.7 256 73.4 86.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l192 192z'/%3E%3C/svg%3E") no-repeat center / contain;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 320 512'%3E%3Cpath d='M310.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-192 192c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L242.7 256 73.4 86.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l192 192z'/%3E%3C/svg%3E") no-repeat center / contain;
+}
+
+.pagination-links a[rel="prev"] {
+  text-align: start;
+}
+
+.pagination-links a[rel="next"] {
+  flex-direction: row !important;
+  text-align: end;
+}
+
+.pagination-links a > span {
+  display: flex;
+  flex-direction: column;
+  gap: 0.125rem;
+  min-width: 0;
+  flex: 1;
+}
+
+.pagination-links a > span > br {
+  display: none;
+}
+
+.pagination-links .link-title {
+  color: var(--sl-color-white) !important;
+  font-size: 0.9375rem !important;
+  font-weight: 500;
+  line-height: 1.375 !important;
+  transition: color 0.15s ease;
+}
+
+.pagination-links a:hover {
+  border-color: var(--sl-color-gray-4) !important;
+}
+
+.pagination-links a:hover .link-title {
+  color: var(--sl-color-text-accent) !important;
+}
+
+.pagination-links a[rel="prev"]:hover::before {
+  background-color: var(--sl-color-text-accent);
+  transform: translateX(-2px);
+}
+
+.pagination-links a[rel="next"]:hover::after {
+  background-color: var(--sl-color-text-accent);
+  transform: translateX(2px);
+}
