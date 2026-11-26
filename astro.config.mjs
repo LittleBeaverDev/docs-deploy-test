@@ -1,26 +1,149 @@
 // @ts-check
-import { defineConfig } from 'astro/config';
-import starlight from '@astrojs/starlight';
+import { defineConfig } from "astro/config";
+import starlight from "@astrojs/starlight";
+import starlightObsidianPlugin from "starlight-obsidian";
+import { rehypeCalloutTabs, starlightSuccessCalloutPlugin } from "./src/plugins/rehype-callout-tabs.mjs";
+import { rehypeImageRows } from "./src/plugins/rehype-image-rows.mjs";
+import { fixUntitledCallouts } from "./src/plugins/fix-untitled-callouts.mjs";
+
+const calloutTabsScript = `
+document.addEventListener('click', (event) => {
+  const tab = event.target instanceof Element ? event.target.closest('.callout-tabs__tab') : null;
+  if (!tab) return;
+  const container = tab.closest('.callout-tabs');
+  if (!container) return;
+  const tabs = Array.from(container.querySelectorAll(':scope > .callout-tabs__list > .callout-tabs__tab'));
+  const panels = Array.from(container.querySelectorAll(':scope > .callout-tabs__panels > .callout-tabs__panel'));
+  const idx = tabs.indexOf(tab);
+  if (idx === -1) return;
+  tabs.forEach((t, i) => {
+    const active = i === idx;
+    t.setAttribute('aria-selected', active ? 'true' : 'false');
+    t.tabIndex = active ? 0 : -1;
+  });
+  panels.forEach((p, i) => {
+    p.hidden = i !== idx;
+  });
+});
+
+document.addEventListener('keydown', (event) => {
+  if (event.key !== 'ArrowLeft' && event.key !== 'ArrowRight') return;
+  const tab = event.target instanceof Element ? event.target.closest('.callout-tabs__tab') : null;
+  if (!tab) return;
+  const container = tab.closest('.callout-tabs');
+  if (!container) return;
+  const tabs = Array.from(container.querySelectorAll(':scope > .callout-tabs__list > .callout-tabs__tab'));
+  const idx = tabs.indexOf(tab);
+  if (idx === -1) return;
+  const nextIdx = (idx + (event.key === 'ArrowRight' ? 1 : -1) + tabs.length) % tabs.length;
+  tabs[nextIdx].focus();
+  tabs[nextIdx].click();
+});
+`;
 
 // https://astro.build/config
 export default defineConfig({
-	integrations: [
-		starlight({
-			title: 'My Docs',
-			social: [{ icon: 'github', label: 'GitHub', href: 'https://github.com/withastro/starlight' }],
-			sidebar: [
-				{
-					label: 'Guides',
-					items: [
-						// Each item here is one entry in the navigation menu.
-						{ label: 'Example Guide', slug: 'guides/example' },
-					],
-				},
-				{
-					label: 'Reference',
-					items: [{ autogenerate: { directory: 'reference' } }],
-				},
-			],
-		}),
-	],
+  markdown: {
+    rehypePlugins: [rehypeImageRows, rehypeCalloutTabs],
+  },
+  integrations: [
+    starlight({
+      title: "도뉴 사용 가이드",
+      description: "전자계약의 원스톱 솔루션 도뉴를 쉽게 사용하기 위한 가이드",
+      defaultLocale: "root",
+      locales: {
+        root: {
+          label: "한국어",
+          lang: "ko",
+        },
+      },
+      customCss: ["./src/styles/custom.css"],
+      routeMiddleware: "./src/routeData.ts",
+      head: [
+        {
+          tag: "script",
+          content: calloutTabsScript,
+        },
+      ],
+      sidebar: [
+        {
+          label: "도뉴 사용 가이드",
+          link: "/guide/도뉴-사용-가이드/",
+        },
+        {
+          label: "계약 생성",
+          items: [{ autogenerate: { directory: "guide/계약 생성" } }],
+        },
+        {
+          label: "계약서 열람 및 서명",
+          items: [{ autogenerate: { directory: "guide/계약서 열람 및 서명" } }],
+        },
+        {
+          label: "기업회원 기능",
+          items: [{ autogenerate: { directory: "guide/기업회원 기능" } }],
+        },
+        {
+          label: "계약 관리",
+          items: [{ autogenerate: { directory: "guide/계약 관리" } }],
+        },
+        {
+          label: "요금제",
+          items: [{ autogenerate: { directory: "guide/요금제" } }],
+        },
+        {
+          label: "기타 기능",
+          items: [{ autogenerate: { directory: "guide/기타 기능" } }],
+        },
+        {
+          label: "설정",
+          items: [{ autogenerate: { directory: "guide/설정" } }],
+        },
+        {
+          label: "더 알아보기",
+          items: [
+            {
+              label: "도뉴 서비스",
+              link: "https://donue.co.kr/",
+              attrs: {
+                target: "_blank",
+                rel: "noopener noreferrer",
+                title: "새 창에서 열기",
+              },
+            },
+            {
+              label: "서비스 소개서",
+              link: "https://s3.ap-northeast-2.amazonaws.com/donue/introduce/DONUE+Service+Introduction.pdf",
+              attrs: {
+                target: "_blank",
+                rel: "noopener noreferrer",
+                title: "새 창에서 열기",
+              },
+            },
+            {
+              label: "공식 블로그",
+              link: "https://blog.naver.com/donue_solution",
+              attrs: {
+                target: "_blank",
+                rel: "noopener noreferrer",
+                title: "새 창에서 열기",
+              },
+            },
+          ],
+        },
+      ],
+      plugins: [
+        starlightObsidianPlugin({
+          vault: "vault",
+          output: "guide",
+          copyFrontmatter: "starlight",
+          tableOfContentsOverview: "title",
+        }),
+        starlightSuccessCalloutPlugin({
+          vault: "vault",
+          output: "guide",
+        }),
+      ],
+    }),
+    fixUntitledCallouts(),
+  ],
 });

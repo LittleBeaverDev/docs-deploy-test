@@ -1,40 +1,52 @@
 ---
-title: Welcome to Starlight
-description: Get started building your docs site with Starlight.
-template: splash # Remove or comment out this line to display the site sidebar on this page.
+title: 도뉴 사용 가이드
+description: 전자계약의 원스톱 솔루션 도뉴를 쉽게 사용하기 위한 가이드
+template: splash
 hero:
-  tagline: Congrats on setting up a new Starlight project!
-  image:
-    file: ../../assets/houston.webp
+  tagline: 전자계약의 원스톱 솔루션 도뉴(DONUE)를 쉽고 빠르게 사용하기 위한 공식 가이드입니다.
   actions:
-    - text: Example Guide
-      link: /guides/example/
+    - text: 사용 가이드 시작하기
+      link: /guide/도뉴-사용-가이드/
       icon: right-arrow
-    - text: Read the Starlight docs
-      link: https://starlight.astro.build
+    - text: 도뉴 서비스 바로가기
+      link: https://donue.co.kr/
       icon: external
       variant: minimal
 ---
 
-import { Card, CardGrid } from '@astrojs/starlight/components';
+import { LinkCard, CardGrid } from '@astrojs/starlight/components';
 
-## Next steps
+## 주요 가이드 바로가기
 
-<CardGrid stagger>
-	<Card title="Update content" icon="pencil">
-		Edit `src/content/docs/index.mdx` to see this page change.
-	</Card>
-	<Card title="Change page layout" icon="document">
-		Delete `template: splash` in `src/content/docs/index.mdx` to display a
-		sidebar on this page.
-	</Card>
-	<Card title="Add new content" icon="add-document">
-		Add Markdown or MDX files to `src/content/docs` to create new pages.
-	</Card>
-	<Card title="Configure your site" icon="setting">
-		Edit your `sidebar` and other config in `astro.config.mjs`.
-	</Card>
-	<Card title="Read the docs" icon="open-book">
-		Learn more in [the Starlight Docs](https://starlight.astro.build/).
-	</Card>
+<CardGrid>
+  <LinkCard
+    title="계약 생성"
+    description="계약서 업로드, 서명자 초대, 편집 및 전송 방법을 안내합니다."
+    href="/guide/계약-생성/계약-생성/"
+  />
+  <LinkCard
+    title="계약서 열람 및 서명"
+    description="생성자 및 수신자 서명, 정보 입력, 제출 파일 및 첨부 파일 기능을 확인하세요."
+    href="/guide/계약서-열람-및-서명/생성자-서명-방법/"
+  />
+  <LinkCard
+    title="기업회원 기능"
+    description="대량 전송, 링크 계약, 팀 관리, 내부 결재 등 기업 전용 기능을 알아보세요."
+    href="/guide/기업회원-기능/대량-전송/"
+  />
+  <LinkCard
+    title="계약 관리"
+    description="계약 조회, 다운로드, 삭제 및 예약 관리 방법을 제공합니다."
+    href="/guide/계약-관리/계약-관리-방법/"
+  />
+  <LinkCard
+    title="요금제"
+    description="요금제 구매, 변경, 해지 및 환불, FCT 요금제 안내를 확인하세요."
+    href="/guide/요금제/요금제-구매/"
+  />
+  <LinkCard
+    title="기타 기능 및 설정"
+    description="채팅, 템플릿, 주소록, 계약 검증, 서명/도장 관리 및 계정 설정을 안내합니다."
+    href="/guide/기타-기능/채팅-기능/"
+  />
 </CardGrid>
