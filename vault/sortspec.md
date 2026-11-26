@@ -11,6 +11,7 @@ sorting-spec: |-
   기타 기능
   설정
   assets
+  문서 작성 및 배포 가이드
   sortspec
 
   target-folder: 계약 생성
