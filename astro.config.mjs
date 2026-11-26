@@ -5,6 +5,7 @@ import starlightObsidianPlugin from "starlight-obsidian";
 import { rehypeCalloutTabs, starlightSuccessCalloutPlugin } from "./src/plugins/rehype-callout-tabs.mjs";
 import { rehypeImageRows } from "./src/plugins/rehype-image-rows.mjs";
 import { fixUntitledCallouts } from "./src/plugins/fix-untitled-callouts.mjs";
+import { buildSidebarFromVault, watchSortspec } from "./src/lib/sortspec.mjs";
 
 const calloutTabsScript = `
 document.addEventListener('click', (event) => {
@@ -570,38 +571,7 @@ export default defineConfig({
         },
       ],
       sidebar: [
-        {
-          label: "도뉴 사용 가이드",
-          link: "/guide/도뉴-사용-가이드/",
-        },
-        {
-          label: "계약 생성",
-          items: [{ autogenerate: { directory: "guide/계약 생성" } }],
-        },
-        {
-          label: "계약서 열람 및 서명",
-          items: [{ autogenerate: { directory: "guide/계약서 열람 및 서명" } }],
-        },
-        {
-          label: "기업회원 기능",
-          items: [{ autogenerate: { directory: "guide/기업회원 기능" } }],
-        },
-        {
-          label: "계약 관리",
-          items: [{ autogenerate: { directory: "guide/계약 관리" } }],
-        },
-        {
-          label: "요금제",
-          items: [{ autogenerate: { directory: "guide/요금제" } }],
-        },
-        {
-          label: "기타 기능",
-          items: [{ autogenerate: { directory: "guide/기타 기능" } }],
-        },
-        {
-          label: "설정",
-          items: [{ autogenerate: { directory: "guide/설정" } }],
-        },
+        ...buildSidebarFromVault({ vaultDir: "vault", output: "guide" }),
         {
           label: "더 알아보기",
           items: [
@@ -639,6 +609,7 @@ export default defineConfig({
         starlightObsidianPlugin({
           vault: "vault",
           output: "guide",
+          ignore: ["**/sortspec.md"],
           copyFrontmatter: "starlight",
           tableOfContentsOverview: "title",
         }),
@@ -649,5 +620,6 @@ export default defineConfig({
       ],
     }),
     fixUntitledCallouts(),
+    watchSortspec("vault"),
   ],
 });

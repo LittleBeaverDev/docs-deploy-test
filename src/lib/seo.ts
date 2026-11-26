@@ -1,19 +1,9 @@
 import { getCollection, type CollectionEntry } from "astro:content";
+import { parseSortspec } from "./sortspec.mjs";
 
 export const SITE_NAME = "도뉴 사용 가이드";
 export const SITE_DESCRIPTION =
   "전자계약의 원스톱 솔루션 도뉴(DONUE)를 쉽게 사용하기 위한 공식 가이드입니다.";
-
-export const CATEGORY_ORDER = [
-  "도뉴 사용 가이드",
-  "계약 생성",
-  "계약서 열람 및 서명",
-  "기업회원 기능",
-  "계약 관리",
-  "요금제",
-  "기타 기능",
-  "설정",
-] as const;
 
 export const EXTERNAL_LINKS = [
   { label: "도뉴 서비스", url: "https://donue.co.kr/" },
@@ -137,6 +127,9 @@ export function getDocBreadcrumbs(entry: CollectionEntry<"docs">): string[] {
 export async function getOrderedGuideDocs(): Promise<
   Array<{ category: string; docs: CollectionEntry<"docs">[] }>
 > {
+  const sortMap = parseSortspec("vault");
+  const rootOrder = sortMap.get("") ?? [];
+
   const allDocs = await getCollection(
     "docs",
     (entry) => entry.id.startsWith("guide/") && !entry.data.draft,
@@ -150,16 +143,39 @@ export async function getOrderedGuideDocs(): Promise<
     grouped.set(category, list);
   }
 
+  const getRelPath = (doc: CollectionEntry<"docs">) =>
+    doc.filePath
+      ? doc.filePath.replace(/^.*src\/content\/docs\/guide\//, "").replace(/\.md$/, "")
+      : doc.id.replace(/^guide\//, "");
+
+  const sortKey = (doc: CollectionEntry<"docs">): number[] => {
+    const parts = getRelPath(doc).split("/");
+    const key: number[] = [];
+    for (let i = 0; i < parts.length; i++) {
+      const parent = parts.slice(0, i).join("/");
+      const list = sortMap.get(parent) ?? [];
+      const idx = list.indexOf(parts[i]);
+      key.push(idx === -1 ? 999 : idx);
+    }
+    return key;
+  };
+
   const sortDocs = (docs: CollectionEntry<"docs">[]) =>
     docs.sort((a, b) => {
-      const orderA = a.data.sidebar?.order ?? 999;
-      const orderB = b.data.sidebar?.order ?? 999;
-      if (orderA !== orderB) return orderA - orderB;
+      const ka = sortKey(a);
+      const kb = sortKey(b);
+      const len = Math.max(ka.length, kb.length);
+      for (let i = 0; i < len; i++) {
+        const diff = (ka[i] ?? -1) - (kb[i] ?? -1);
+        if (diff !== 0) return diff;
+      }
+      const orderDiff = (a.data.sidebar?.order ?? 999) - (b.data.sidebar?.order ?? 999);
+      if (orderDiff !== 0) return orderDiff;
       return a.data.title.localeCompare(b.data.title, "ko");
     });
 
   const sections: Array<{ category: string; docs: CollectionEntry<"docs">[] }> = [];
-  for (const category of CATEGORY_ORDER) {
+  for (const category of rootOrder) {
     const docs = grouped.get(category);
     if (docs?.length) {
       sections.push({ category, docs: sortDocs(docs) });
