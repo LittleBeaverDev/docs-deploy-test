@@ -166,8 +166,10 @@ export function watchSortspec(vaultDir = "vault") {
   return {
     name: "watch-sortspec",
     hooks: {
-      "astro:config:setup"({ addWatchFile }) {
-        addWatchFile(path.resolve(vaultDir, "sortspec.md"));
+      "astro:config:setup"({ command, addWatchFile }) {
+        if (command === "dev") {
+          addWatchFile(path.resolve(vaultDir, "sortspec.md"));
+        }
       },
     },
   };
